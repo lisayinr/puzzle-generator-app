@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import PuzzleSelector from "./components/PuzzleSelector";
+import SudokuGrid from "./components/SudokuGrid";
+import WordSearchGrid from "./components/WordSearchGrid";
 
 function App() {
+  const [selectedPuzzle, setSelectedPuzzle] = useState(null);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {/* If no puzzle selected, show the selector */}
+      {!selectedPuzzle && <PuzzleSelector onSelect={setSelectedPuzzle} />}
+
+      {/* Show Sudoku if selected */}
+      {selectedPuzzle === "sudoku" && (
+        <div>
+          <SudokuGrid />
+          <button className="back-button" onClick={() => setSelectedPuzzle(null)}>Back</button>
+        </div>
+      )}
+
+      {/* Show Word Search if selected */}
+      {selectedPuzzle === "wordsearch" && (
+        <div>
+          <WordSearchGrid />
+          <button className="back-button" onClick={() => setSelectedPuzzle(null)}>Back</button>
+        </div>
+      )}
     </div>
   );
 }
