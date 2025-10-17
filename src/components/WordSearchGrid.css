@@ -1,0 +1,24 @@
+.wordsearch-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.wordsearch-container table {
+  border-collapse: collapse;
+  margin: 0 auto 20px auto;
+}
+
+.wordsearch-container td {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #444;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  font-family: monospace;
+}
+
+.word-list ul {
+  list-style: none;
+  padding: 0;
+}
