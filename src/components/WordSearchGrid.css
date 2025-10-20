@@ -1,6 +1,58 @@
 .wordsearch-container {
   text-align: center;
   margin-top: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Grid table layout */
+.wordsearch-container table {
+  border-collapse: collapse;
+  margin: 0 auto 20px auto;
+  user-select: none; /* prevent text selection while dragging */
+}
+
+.wordsearch-container td {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #444;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  font-family: monospace;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Highlighted cells when player selects them */
+.wordsearch-container td.highlighted {
+  background-color: #a2eb34; /* bright yellow highlight */
+  color: #000;
+  border-radius: 3px;
+}
+
+/* Word list styling */
+.word-list h3 {
+  margin-bottom: 5px;
+}
+
+.word-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  display: inline-block;
+  text-align: left;
+}
+
+.word-list li {
+  font-size: 16px;
+  margin: 3px 0;
+}
+
+
+
+/* .wordsearch-container {
+  text-align: center;
+  margin-top: 20px;
 }
 
 .wordsearch-container table {
@@ -21,4 +73,4 @@
 .word-list ul {
   list-style: none;
   padding: 0;
-}
+} */
