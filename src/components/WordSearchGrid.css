@@ -1,3 +1,65 @@
+/* ===== Shared App & Header ===== */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f9f9f9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2c3e50;
+  color: white;
+  padding: 10px 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.logo {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.sub-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 400;
+  padding-right: 30px;
+}
+
+.wordsearch-layout {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 20px;
+  gap: 40px;
+}
+
+.button-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.back-button {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #45a049;
+}
+
 .wordsearch-container {
   text-align: center;
   margin-top: 20px;
@@ -12,9 +74,8 @@
 }
 
 .wordsearch-container td {
-  width: 30px;
-  height: 30px;
-  border: 1px solid #444;
+  width: 40px;
+  height: 40px;
   text-align: center;
   font-weight: bold;
   font-size: 18px;
@@ -48,29 +109,21 @@
   margin: 3px 0;
 }
 
-
-
-/* .wordsearch-container {
-  text-align: center;
-  margin-top: 20px;
+/* Highlighted while dragging */
+.wordsearch-container td.highlighted {
+  background-color: #baf2d4;
+  color: #000;
 }
 
-.wordsearch-container table {
-  border-collapse: collapse;
-  margin: 0 auto 20px auto;
+/* Permanently found words (green) */
+.wordsearch-container td.found {
+  background-color: #59bd2e;
+  color: white;
 }
 
-.wordsearch-container td {
-  width: 30px;
-  height: 30px;
-  border: 1px solid #444;
-  text-align: center;
+/* Strike through found words in list */
+.word-list li.found-word {
+  color: #59bd2e;
+  text-decoration: line-through;
   font-weight: bold;
-  font-size: 18px;
-  font-family: monospace;
 }
-
-.word-list ul {
-  list-style: none;
-  padding: 0;
-} */

@@ -116,6 +116,7 @@
   border: none;
   background: transparent;
   outline: none;
+  color: #0986a5;
 }
 
 .sudoku-grid input[readonly] {
