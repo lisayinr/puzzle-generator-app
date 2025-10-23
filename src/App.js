@@ -6,25 +6,25 @@ import WordSearchGrid from "./components/WordSearchGrid";
 function App() {
   const [selectedPuzzle, setSelectedPuzzle] = useState(null);
 
+  const handleBack = () => setSelectedPuzzle(null);
+
   return (
     <div>
-      {/* If no puzzle selected, show the selector */}
-      {!selectedPuzzle && <PuzzleSelector onSelect={setSelectedPuzzle} />}
-
-      {/* Show Sudoku if selected */}
-      {selectedPuzzle === "sudoku" && (
-        <div>
-          <SudokuGrid />
-          <button className="back-button" onClick={() => setSelectedPuzzle(null)}>Back</button>
-        </div>
+      {/* Home screen */}
+      {!selectedPuzzle && (
+        <>
+          <PuzzleSelector onSelect={setSelectedPuzzle} />
+        </>
       )}
 
-      {/* Show Word Search if selected */}
+      {/* Sudoku */}
+      {selectedPuzzle === "sudoku" && (
+        <SudokuGrid onBack={handleBack} />
+      )}
+
+      {/* Word Search */}
       {selectedPuzzle === "wordsearch" && (
-        <div>
-          <WordSearchGrid />
-          <button className="back-button" onClick={() => setSelectedPuzzle(null)}>Back</button>
-        </div>
+        <WordSearchGrid onBack={handleBack} />
       )}
     </div>
   );

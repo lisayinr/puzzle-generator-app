@@ -2,38 +2,45 @@ import "./SudokuGrid.css";
 import { useState } from "react";
 import { generateSudoku } from "../utils/sudokuGenerator";
 
-function SudokuGrid() {
-  const initialData = generateSudoku();
-  const [puzzle, setPuzzle] = useState(initialData.puzzle);
-  const [grid, setGrid] = useState(initialData.puzzle);
-  const [solution, setSolution] = useState(initialData.solution);
+function SudokuGrid({ onBack }) {
+  const [puzzleData, setPuzzleData] = useState(generateSudoku());
+  const [grid, setGrid] = useState(puzzleData.puzzle);
+  const [solution, setSolution] = useState(puzzleData.solution);
 
+  // 🧩 New Puzzle
   const loadNewPuzzle = () => {
     const newData = generateSudoku();
-    setPuzzle(newData.puzzle);
+    setPuzzleData(newData);
     setGrid(newData.puzzle);
     setSolution(newData.solution);
   };
 
+  // 🔁 Reset Puzzle
+  const resetPuzzle = () => {
+    setGrid(puzzleData.puzzle.map((row) => [...row]));
+  };
+
   const checkAnswer = () => {
     if (JSON.stringify(grid) === JSON.stringify(solution)) {
-      alert("✅ Correct! You solved the puzzle!");
+      alert("✅ Correct! Well done!");
     } else {
-      alert("❌ Not quite — keep trying!");
+      alert("❌ Not quite, keep trying!");
     }
   };
 
   return (
     <div className="app-container">
-      <header className="header-bar">
-        <h1 className="logo">Puzzle Hub</h1>
-        <h2 className="sub-title">Sudoku</h2>
-      </header>
+      <div className="header-bar">
+        <h1 className="logo">Puzzle Generator</h1>
+        <h2 className="sub-title">Sudoku Puzzle</h2>
+      </div>
 
       <div className="sudoku-layout">
         <div className="button-column">
-          <button onClick={checkAnswer}>Check Answer</button>
+          <button className="back-button" onClick={onBack}>Back</button>
           <button onClick={loadNewPuzzle}>New Puzzle</button>
+          <button onClick={resetPuzzle}>Reset Puzzle</button>
+          <button onClick={checkAnswer}>Check Answer</button>
         </div>
 
         <div className="sudoku-grid">
@@ -43,7 +50,7 @@ function SudokuGrid() {
                 <tr key={rowIndex}>
                   {row.map((cell, colIndex) => (
                     <td key={colIndex}>
-                      {puzzle[rowIndex][colIndex] !== 0 ? (
+                      {puzzleData.puzzle[rowIndex][colIndex] !== 0 ? (
                         <input value={cell} readOnly />
                       ) : (
                         <input

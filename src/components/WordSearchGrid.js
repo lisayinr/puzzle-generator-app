@@ -3,7 +3,7 @@ import { generateWordSearch } from "../utils/wordSearchGenerator";
 import "./WordSearchGrid.css";
 
 function WordSearchGrid({ onBack }) {
-  const [puzzleData] = useState(generateWordSearch());
+  const [puzzleData, setPuzzleData] = useState(generateWordSearch());
   const { grid, words } = puzzleData;
 
   const [selectedCells, setSelectedCells] = useState([]);
@@ -32,7 +32,7 @@ function WordSearchGrid({ onBack }) {
     const reversed = selectedWord.split("").reverse().join("");
 
     if (words.includes(selectedWord) || words.includes(reversed)) {
-      alert(`✅ Found ${selectedWord}!`);
+      alert(`✅ Found "${selectedWord}"!`);
       setFoundWords((prev) => [...prev, selectedWord]);
       setFoundCells((prev) => [...prev, ...selectedCells]);
     }
@@ -40,27 +40,39 @@ function WordSearchGrid({ onBack }) {
     setSelectedCells([]);
   };
 
-  const isSelected = (r, c) =>
-    selectedCells.some(([sr, sc]) => sr === r && sc === c);
+  const isSelected = (r, c) => selectedCells.some(([sr, sc]) => sr === r && sc === c);
+  const isFound = (r, c) => foundCells.some(([fr, fc]) => fr === r && fc === c);
 
-  const isFound = (r, c) =>
-    foundCells.some(([fr, fc]) => fr === r && fc === c);
+  // 🧩 New Puzzle
+  const loadNewPuzzle = () => {
+    const newData = generateWordSearch();
+    setPuzzleData(newData);
+    setSelectedCells([]);
+    setFoundCells([]);
+    setFoundWords([]);
+  };
+
+  // 🔁 Reset Puzzle
+  const resetPuzzle = () => {
+    setSelectedCells([]);
+    setFoundCells([]);
+    setFoundWords([]);
+  };
 
   return (
     <div className="app-container">
-      {/* Header Bar */}
       <div className="header-bar">
         <h1 className="logo">Puzzle Generator</h1>
         <h2 className="sub-title">Word Search Puzzle</h2>
       </div>
 
       <div className="wordsearch-layout">
-        {/* Left column: Back button */}
         <div className="button-column">
           <button className="back-button" onClick={onBack}>Back</button>
+          <button onClick={loadNewPuzzle}>New Puzzle</button>
+          <button onClick={resetPuzzle}>Reset Puzzle</button>
         </div>
 
-        {/* Right column: Grid and word list */}
         <div className="wordsearch-container">
           <table onMouseLeave={() => setIsDragging(false)}>
             <tbody>
@@ -89,13 +101,10 @@ function WordSearchGrid({ onBack }) {
           </table>
 
           <div className="word-list">
-            <h3>Word Bank:</h3>
+            <h3>Find these words:</h3>
             <ul>
               {words.map((w, i) => (
-                <li
-                  key={i}
-                  className={foundWords.includes(w) ? "found-word" : ""}
-                >
+                <li key={i} className={foundWords.includes(w) ? "found-word" : ""}>
                   {w}
                 </li>
               ))}
