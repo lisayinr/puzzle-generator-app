@@ -30,6 +30,7 @@
   padding-right: 30px;
 }
 
+/* ===== Layout Section ===== */
 .wordsearch-layout {
   display: flex;
   flex-direction: row;
@@ -39,12 +40,22 @@
   gap: 40px;
 }
 
+/* ===== Left Column (Buttons + Word List) ===== */
+.left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* Button styles */
 .button-column {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
+.button-column button,
 .back-button {
   background-color: #4caf50;
   border: none;
@@ -56,21 +67,59 @@
   transition: background-color 0.3s;
 }
 
+.button-column button:hover,
 .back-button:hover {
   background-color: #45a049;
 }
 
-.wordsearch-container {
-  text-align: center;
-  margin-top: 20px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+/* ===== Word List (Word Bank) ===== */
+.word-list {
+  text-align: left;
+  background-color: #ffffff;
+  padding: 10px 15px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  max-width: 180px;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
-/* Grid table layout */
+.word-list h3 {
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+  color: #2c3e50;
+  text-align: center;
+}
+
+.word-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.word-list li {
+  font-size: 16px;
+  margin: 4px 0;
+  transition: color 0.2s ease;
+}
+
+.word-list li.found-word {
+  color: #59bd2e;
+  text-decoration: line-through;
+  font-weight: bold;
+}
+
+/* ===== Word Search Grid (No Borders) ===== */
+.wordsearch-container {
+  flex: 1;
+  text-align: center;
+}
+
+/* Table without visible lines */
 .wordsearch-container table {
   border-collapse: collapse;
-  margin: 0 auto 20px auto;
-  user-select: none; /* prevent text selection while dragging */
+  margin: 0 auto;
+  user-select: none;
 }
 
 .wordsearch-container td {
@@ -82,48 +131,23 @@
   font-family: monospace;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  border: none; /* <-- removes lines completely */
 }
 
-/* Highlighted cells when player selects them */
-.wordsearch-container td.highlighted {
-  background-color: #a2eb34; /* bright yellow highlight */
-  color: #000;
-  border-radius: 3px;
-}
-
-/* Word list styling */
-.word-list h3 {
-  margin-bottom: 5px;
-}
-
-.word-list ul {
-  list-style: none;
-  padding: 0;
-  margin: 0 auto;
-  display: inline-block;
-  text-align: left;
-}
-
-.word-list li {
-  font-size: 16px;
-  margin: 3px 0;
-}
-
-/* Highlighted while dragging */
+/* Highlighted cells (when selecting) */
 .wordsearch-container td.highlighted {
   background-color: #baf2d4;
   color: #000;
+  border-radius: 4px;
 }
 
-/* Permanently found words (green) */
+/* Found words (green) */
 .wordsearch-container td.found {
   background-color: #59bd2e;
-  color: white;
+  color: #fff;
 }
 
-/* Strike through found words in list */
-.word-list li.found-word {
-  color: #59bd2e;
-  text-decoration: line-through;
-  font-weight: bold;
+/* Hover feedback */
+.wordsearch-container td:hover {
+  background-color: #e0f7fa;
 }

@@ -136,3 +136,33 @@
   -webkit-appearance: none;
   margin: 0;
 }
+
+/* ===== Difficulty Dropdown ===== */
+.button-column label {
+  font-weight: 600;
+  color: #333;
+  margin-top: 5px;
+}
+
+.button-column select {
+  padding: 8px 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #f4f4f4;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Hover & focus styling */
+.button-column select:hover {
+  background-color: #eaeaea;
+  border-color: #4caf50;
+}
+
+.button-column select:focus {
+  outline: none;
+  border-color: #4caf50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.6);
+}

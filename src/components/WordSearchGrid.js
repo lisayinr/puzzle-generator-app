@@ -28,7 +28,7 @@ function WordSearchGrid({ onBack }) {
   const handleMouseUp = () => {
     setIsDragging(false);
 
-    const selectedWord = selectedCells.map(([r, c]) => grid[r][c]).join("").toUpperCase();
+    const selectedWord = selectedCells.map(([r, c]) => grid[r][c]).join("");
     const reversed = selectedWord.split("").reverse().join("");
 
     if (words.includes(selectedWord) || words.includes(reversed)) {
@@ -40,8 +40,11 @@ function WordSearchGrid({ onBack }) {
     setSelectedCells([]);
   };
 
-  const isSelected = (r, c) => selectedCells.some(([sr, sc]) => sr === r && sc === c);
-  const isFound = (r, c) => foundCells.some(([fr, fc]) => fr === r && fc === c);
+  const isSelected = (r, c) =>
+    selectedCells.some(([sr, sc]) => sr === r && sc === c);
+
+  const isFound = (r, c) =>
+    foundCells.some(([fr, fc]) => fr === r && fc === c);
 
   // 🧩 New Puzzle
   const loadNewPuzzle = () => {
@@ -66,13 +69,17 @@ function WordSearchGrid({ onBack }) {
         <h2 className="sub-title">Word Search Puzzle</h2>
       </div>
 
+      {/* MAIN LAYOUT */}
       <div className="wordsearch-layout">
+
+        {/* LEFT: Buttons */}
         <div className="button-column">
           <button className="back-button" onClick={onBack}>Back</button>
           <button onClick={loadNewPuzzle}>New Puzzle</button>
           <button onClick={resetPuzzle}>Reset Puzzle</button>
         </div>
 
+        {/* CENTER: Puzzle Grid */}
         <div className="wordsearch-container">
           <table onMouseLeave={() => setIsDragging(false)}>
             <tbody>
@@ -99,17 +106,21 @@ function WordSearchGrid({ onBack }) {
               ))}
             </tbody>
           </table>
+        </div>
 
-          <div className="word-list">
-            <h3>Find these words:</h3>
-            <ul>
-              {words.map((w, i) => (
-                <li key={i} className={foundWords.includes(w) ? "found-word" : ""}>
-                  {w}
-                </li>
-              ))}
-            </ul>
-          </div>
+        {/* RIGHT: Word List */}
+        <div className="word-list">
+          <h3>Find these words:</h3>
+          <ul>
+            {words.map((w, i) => (
+              <li
+                key={i}
+                className={foundWords.includes(w) ? "found-word" : ""}
+              >
+                {w}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>

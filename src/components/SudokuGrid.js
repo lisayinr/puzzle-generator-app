@@ -1,15 +1,33 @@
 import "./SudokuGrid.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { generateSudoku } from "../utils/sudokuGenerator";
 
 function SudokuGrid({ onBack }) {
-  const [puzzleData, setPuzzleData] = useState(generateSudoku());
+  const [difficulty, setDifficulty] = useState("easy");
+  const [puzzleData, setPuzzleData] = useState(generateSudoku({ blanks: 38 }));
   const [grid, setGrid] = useState(puzzleData.puzzle);
   const [solution, setSolution] = useState(puzzleData.solution);
 
+  // 🔄 Auto-generate whenever difficulty changes
+  useEffect(() => {
+    const blanks =
+      difficulty === "easy" ? 38 :
+      difficulty === "medium" ? 46 :
+      54; // hard
+
+    const newData = generateSudoku({ blanks });
+    setPuzzleData(newData);
+    setGrid(newData.puzzle);
+    setSolution(newData.solution);
+  }, [difficulty]);
+
   // 🧩 New Puzzle
   const loadNewPuzzle = () => {
-    const newData = generateSudoku();
+    const blanks =
+      difficulty === "easy" ? 38 :
+      difficulty === "medium" ? 46 :
+      54; // hard
+    const newData = generateSudoku({ blanks });
     setPuzzleData(newData);
     setGrid(newData.puzzle);
     setSolution(newData.solution);
@@ -20,6 +38,7 @@ function SudokuGrid({ onBack }) {
     setGrid(puzzleData.puzzle.map((row) => [...row]));
   };
 
+  // ✅ Check Answer
   const checkAnswer = () => {
     if (JSON.stringify(grid) === JSON.stringify(solution)) {
       alert("✅ Correct! Well done!");
@@ -30,19 +49,40 @@ function SudokuGrid({ onBack }) {
 
   return (
     <div className="app-container">
+      {/* Header Bar */}
       <div className="header-bar">
         <h1 className="logo">Puzzle Generator</h1>
-        <h2 className="sub-title">Sudoku Puzzle</h2>
+        <h2 className="sub-title">
+          Sudoku Puzzle — <span style={{ textTransform: "capitalize" }}>{difficulty}</span>
+        </h2>
       </div>
 
+      {/* Layout */}
       <div className="sudoku-layout">
+        {/* Button Column */}
         <div className="button-column">
-          <button className="back-button" onClick={onBack}>Back</button>
+          <button className="back-button" onClick={onBack}>
+            Back
+          </button>
+
+          {/* Difficulty Dropdown */}
+          <label htmlFor="difficulty">Difficulty:</label>
+          <select
+            id="difficulty"
+            value={difficulty}
+            onChange={(e) => setDifficulty(e.target.value)}
+          >
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+
           <button onClick={loadNewPuzzle}>New Puzzle</button>
           <button onClick={resetPuzzle}>Reset Puzzle</button>
           <button onClick={checkAnswer}>Check Answer</button>
         </div>
 
+        {/* Sudoku Grid */}
         <div className="sudoku-grid">
           <table>
             <tbody>
@@ -83,3 +123,4 @@ function SudokuGrid({ onBack }) {
 }
 
 export default SudokuGrid;
+
