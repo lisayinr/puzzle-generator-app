@@ -66,7 +66,7 @@ function WordSearchGrid({ onBack }) {
     <div className="app-container">
       <div className="header-bar">
         <h1 className="logo">Puzzle Generator</h1>
-        <h2 className="sub-title">Word Search Puzzle</h2>
+        <h2 className="sub-title">Word Search</h2>
       </div>
 
       {/* MAIN LAYOUT */}
@@ -110,7 +110,7 @@ function WordSearchGrid({ onBack }) {
 
         {/* RIGHT: Word List */}
         <div className="word-list">
-          <h3>Find these words:</h3>
+          <h3>- - -  Word Bank  - - -</h3>
           <ul>
             {words.map((w, i) => (
               <li

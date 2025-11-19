@@ -1,4 +1,6 @@
-/* General container */
+/* -------------------------------------------------
+   GENERAL APP LAYOUT
+---------------------------------------------------*/
 .app-container {
   display: flex;
   flex-direction: column;
@@ -7,7 +9,7 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* ===== Header Bar ===== */
+/* ---------------- HEADER BAR -------------------*/
 .header-bar {
   display: flex;
   justify-content: space-between;
@@ -31,7 +33,9 @@
   padding-right: 30px;
 }
 
-/* ===== Layout Section ===== */
+/* -------------------------------------------------
+   LAYOUT WRAPPING BUTTONS + GRID
+---------------------------------------------------*/
 .sudoku-layout {
   display: flex;
   flex-direction: row;
@@ -41,7 +45,9 @@
   gap: 40px;
 }
 
-/* ===== Button Column ===== */
+/* -------------------------------------------------
+   LEFT BUTTON COLUMN
+---------------------------------------------------*/
 .button-column {
   display: flex;
   flex-direction: column;
@@ -63,7 +69,7 @@
   background-color: #45a049;
 }
 
-/* Make Back button match the green style */
+/* Back button */
 .back-button {
   background-color: #4caf50;
   border: none;
@@ -73,14 +79,45 @@
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s;
-  margin: 20px; /* adds breathing room */
+  margin: 20px;
 }
 
 .back-button:hover {
   background-color: #45a049;
 }
 
-/* ===== Sudoku Grid ===== */
+/* Difficulty Dropdown */
+.button-column label {
+  font-weight: 600;
+  color: #333;
+  margin-top: 5px;
+}
+
+.button-column select {
+  padding: 8px 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #f4f4f4;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.button-column select:hover {
+  background-color: #eaeaea;
+  border-color: #4caf50;
+}
+
+.button-column select:focus {
+  outline: none;
+  border-color: #4caf50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.6);
+}
+
+/* -------------------------------------------------
+   SUDOKU GRID STYLING
+---------------------------------------------------*/
 .sudoku-grid table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -96,17 +133,18 @@
   vertical-align: middle;
 }
 
-/* Thick lines every 3rd row/col */
+/* Thick borders for 3×3 sections */
 .sudoku-grid tr:nth-child(3) td,
 .sudoku-grid tr:nth-child(6) td {
   border-bottom: 3px solid #333;
 }
+
 .sudoku-grid td:nth-child(3),
 .sudoku-grid td:nth-child(6) {
   border-right: 3px solid #333;
 }
 
-/* Input styling */
+/* Input cells */
 .sudoku-grid input {
   width: 100%;
   height: 100%;
@@ -130,39 +168,72 @@
   box-shadow: 0 0 6px #26c6da;
 }
 
-/* Disable number spinners */
+/* Remove spinners */
 .sudoku-grid input::-webkit-inner-spin-button,
 .sudoku-grid input::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-/* ===== Difficulty Dropdown ===== */
-.button-column label {
-  font-weight: 600;
-  color: #333;
-  margin-top: 5px;
+/* Incorrect input (mistake checker) */
+.wrong {
+  color: #fb1111 !important;
+  font-weight: 700;
 }
 
-.button-column select {
-  padding: 8px 10px;
-  font-size: 1rem;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  background-color: #f4f4f4;
-  color: #333;
+/* -------------------------------------------------
+   NUMBER PAD AREA
+---------------------------------------------------*/
+
+/* Grid + number pad side-by-side */
+.sudoku-main {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+/* Arrange numbers in 3×3 rows */
+.number-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 40px);
+  gap: 8px;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.number-pad button {
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  border-radius: 6px;
+  background-color: #dfe6e9;
+  color: #2d3436;
+  border: 1px solid #b2bec3;
   cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
-/* Hover & focus styling */
-.button-column select:hover {
-  background-color: #eaeaea;
-  border-color: #4caf50;
+.number-pad button:hover {
+  background-color: #b2bec3;
 }
 
-.button-column select:focus {
-  outline: none;
-  border-color: #4caf50;
-  box-shadow: 0 0 5px rgba(76, 175, 80, 0.6);
+/* -------------------------------------------------
+ERASE BUTTON
+---------------------------------------------------*/
+.erase-button {
+  grid-column: span 3 !important;
+  width: 100% !important;
+  height: 45px !important;
+  font-size: 1.1rem;
+  background-color: #ff7675 !important;
+  color: white !important;
+  border: none;
+  border-radius: 6px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.erase-button:hover {
+  background-color: #d63031 !important;
 }
