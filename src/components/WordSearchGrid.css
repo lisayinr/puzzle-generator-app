@@ -183,8 +183,8 @@
 .highlight-line {
   position: fixed;
   height: 18px;
-  background: rgba(255, 200, 80, 0.55);
-  border-radius: 12px;
+  background: rgba(176, 229, 84, 0.465);
+  border-radius: 6px;
   pointer-events: none;
   transform-origin: left center;
   transition: opacity 0.15s ease;
