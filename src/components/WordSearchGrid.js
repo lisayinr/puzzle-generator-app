@@ -13,7 +13,7 @@ function WordSearchGrid({ onBack }) {
   const [foundCells, setFoundCells] = useState([]);
   const [foundWords, setFoundWords] = useState([]);
 
-  // 🔥 active highlight overlay (current drag)
+  // active highlight overlay (current drag)
   const [highlightStyle, setHighlightStyle] = useState({
     width: 0,
     top: 0,
@@ -22,7 +22,7 @@ function WordSearchGrid({ onBack }) {
     opacity: 0,
   });
 
-  // 🔥 permanent highlight lines for words already found
+  // permanent highlight lines for words already found
   const [foundLines, setFoundLines] = useState([]);
 
   /* ---------------------------------------------------
