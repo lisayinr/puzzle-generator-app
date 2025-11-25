@@ -1,0 +1,156 @@
+/* -------------------------------------------------
+   GLOBAL APP THEME (Orange)
+---------------------------------------------------*/
+
+body {
+  margin: 0;
+  background-color: #fff7f0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Shared header bar used by Sudoku & Word Search */
+.header-bar {
+  background-color: #e67c17; /* orange */
+  color: white;
+  padding: 12px 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.sub-title {
+  margin: 0;
+  font-size: 1.2rem;
+  opacity: 0.95;
+}
+
+/* Shared button style used everywhere */
+button {
+  background-color: #f39c12;
+  border: none;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.1s ease;
+}
+
+button:hover {
+  background-color: #e67e22;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* Shared layout for all puzzle screens */
+.app-container {
+  background-color: #fff7f0;
+  min-height: 100vh;
+}
+
+/* GLOBAL TITLES */
+h2 {
+  color: #d35400;
+  text-align: center;
+}
+
+/* -------------------------------------------------
+   HOME PAGE / PUZZLE SELECTOR
+---------------------------------------------------*/
+
+.puzzle-selector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 120px;
+  gap: 20px;
+}
+
+.puzzle-selector h2 {
+  font-size: 2rem;
+  color: #d35400;
+}
+
+.puzzle-selector button {
+  width: 200px;
+  height: 50px;
+  font-size: 1.2rem;
+  background-color: #f39c12;
+}
+
+.puzzle-selector button:hover {
+  background-color: #e67e22;
+}
+
+/* ================================
+   HOME SCREEN
+================================ */
+.home-container {
+  text-align: center;
+  margin-top: 80px;
+}
+
+.home-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #ff8c42, #F39C12);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.home-subtitle {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  color: #555;
+}
+
+/* buttons on home page */
+.home-buttons {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.home-buttons button {
+  background-color: #78b61b;
+  color: white;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+
+  width: 180px;
+  text-align: center;
+}
+
+
+.home-buttons button:hover {
+  background-color: #619316;
+}
+
+/* ================================
+   FOOTER
+================================ */
+.site-footer {
+  text-align: center;
+  padding: 12px 0;
+  margin-top: auto; /* stick to bottom */
+  background: linear-gradient(90deg, #ff8c42, #F39C12);
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  box-shadow: 0 -3px 5px rgba(0,0,0,0.1);
+}

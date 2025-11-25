@@ -217,7 +217,6 @@ function SudokuGrid({ onBack }) {
             </table>
           </div>
 
-          {/* ⬇⬇ FIXED number pad */}
           <div className="number-pad">
             {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
               <button key={num} onClick={() => applyNumber(num)}>
@@ -233,8 +232,10 @@ function SudokuGrid({ onBack }) {
             </button>
           </div>
         </div>
-
       </div>
+      <footer className="footer">
+        <p>Puzzle Generator © 2025 | Created by Lisa Yin</p>
+      </footer>
     </div>
   );
 }

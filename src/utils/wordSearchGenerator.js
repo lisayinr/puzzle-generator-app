@@ -68,7 +68,7 @@ function fillRandomLetters(grid) {
 }
 
 // Main generator
-export function generateWordSearch(size = 12, wordCount = 8) {
+export function generateWordSearch(size = 12, wordCount = 12) {
   const grid = createEmptyGrid(size);
   const words = getRandomWords(wordCount);
 
