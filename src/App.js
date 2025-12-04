@@ -1,4 +1,4 @@
-import "./App.css";
+import "./app.css";
 import { useState } from "react";
 import PuzzleSelector from "./components/PuzzleSelector";
 import SudokuGrid from "./components/SudokuGrid";
