@@ -1,6 +1,7 @@
 import "./SudokuGrid.css";
 import { useState, useEffect } from "react";
 import { generateSudoku } from "../utils/sudokuGenerator";
+import confetti from "canvas-confetti";
 
 function SudokuGrid({ onBack }) {
   const [difficulty, setDifficulty] = useState("easy");
@@ -29,6 +30,35 @@ function SudokuGrid({ onBack }) {
     const s = time % 60;
     return `${m}:${s.toString().padStart(2, "0")}`;
   };
+
+  /* ------------------ AUTO-DETECT COMPLETION ------------------ */
+  useEffect(() => {
+    if (JSON.stringify(grid) === JSON.stringify(solution)) {
+      setIsRunning(false);
+
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.4 }
+      });
+
+      setTimeout(() => {
+        const blanks =
+          difficulty === "easy" ? 38 :
+          difficulty === "medium" ? 46 :
+          54;
+
+        const newData = generateSudoku({ blanks });
+        setPuzzleData(newData);
+        setGrid(newData.puzzle);
+        setSolution(newData.solution);
+
+        setTime(0);
+        setIsRunning(true);
+        setActiveCell(null);
+      }, 1200);
+    }
+  }, [grid, solution, difficulty]);
 
   /* ------------------ DIFFICULTY CHANGE ------------------ */
   useEffect(() => {
@@ -76,13 +106,23 @@ function SudokuGrid({ onBack }) {
   const checkAnswer = () => {
     if (JSON.stringify(grid) === JSON.stringify(solution)) {
       setIsRunning(false);
-      alert(`✅ Correct!\nTime: ${formatTime()}`);
+
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.4 }
+      });
+
+      setTimeout(() => {
+        loadNewPuzzle();
+      }, 1200);
+
     } else {
       alert("❌ Not quite, keep trying!");
     }
   };
 
-  /* ------------------ HINT SYSTEM ------------------ */
+  /* ------------------ HINT SYSTEM (UPDATED FIX) ------------------ */
   const giveHint = () => {
     const blanks = [];
     for (let r = 0; r < 9; r++) {
@@ -94,7 +134,16 @@ function SudokuGrid({ onBack }) {
     }
 
     if (blanks.length === 0) {
-      alert("🎉 No blanks left to fill!");
+      confetti({
+        particleCount: 120,
+        spread: 70,
+        origin: { y: 0.3 }
+      });
+
+      setTimeout(() => {
+        loadNewPuzzle();
+      }, 1000);
+
       return;
     }
 
@@ -125,22 +174,34 @@ function SudokuGrid({ onBack }) {
     setGrid(newGrid);
   };
 
+  /* ------------------ CLEAR ACTIVE CELL WHEN CLICKING OUTSIDE GRID & PAD ------------------ */
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const gridEl = document.querySelector(".sudoku-grid");
+      const padEl = document.querySelector(".number-pad");
+
+      if (!gridEl || !padEl) return;
+
+      const clickedInsideGrid = gridEl.contains(event.target);
+      const clickedInsidePad = padEl.contains(event.target);
+
+      // Only clear activeCell if click is outside both the grid and the number pad
+      if (!clickedInsideGrid && !clickedInsidePad) {
+        setActiveCell(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="app-container">
       <div className="header-bar">
         <h1 className="logo">Puzzle Generator</h1>
         <h2 className="sub-title">Sudoku</h2>
-      </div>
-
-      <div
-        style={{
-          textAlign: "center",
-          marginTop: "10px",
-          fontSize: "1.2rem",
-          fontWeight: "600",
-        }}
-      >
-        Time: {formatTime()}
       </div>
 
       <div className="sudoku-layout">
@@ -217,22 +278,24 @@ function SudokuGrid({ onBack }) {
             </table>
           </div>
 
-          <div className="number-pad">
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
-              <button key={num} onClick={() => applyNumber(num)}>
-                {num}
-              </button>
-            ))}
+          <div className="sudoku-side-panel">
+            <div className="sudoku-timer-fixed">{formatTime()}</div>
 
-            <button
-              className="erase-button"
-              onClick={() => applyNumber(0)}
-            >
-              Erase
-            </button>
+            <div className="number-pad">
+              {[1,2,3,4,5,6,7,8,9].map((num) => (
+                <button key={num} onClick={() => applyNumber(num)}>
+                  {num}
+                </button>
+              ))}
+              <button className="erase-button" onClick={() => applyNumber(0)}>
+                Erase
+              </button>
+            </div>
+
           </div>
         </div>
       </div>
+
       <footer className="footer">
         <p>Puzzle Generator © 2025 | Created by Lisa Yin</p>
       </footer>

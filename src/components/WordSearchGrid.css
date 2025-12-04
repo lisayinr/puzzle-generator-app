@@ -210,3 +210,30 @@
   box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.15);
   z-index: 1000;
 }
+
+
+
+@keyframes growHighlight {
+  0% { transform: scaleX(0); opacity: 0.2; }
+  100% { transform: scaleX(1); opacity: 1; }
+}
+
+
+@media (max-width: 900px) {
+  .wordsearch-layout {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .wordsearch-container td {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+
+  .word-list {
+    width: 160px;
+  }
+}

@@ -11,9 +11,9 @@ function createEmptyGrid(size = 12) {
   return Array.from({ length: size }, () => Array(size).fill(""));
 }
 
-// Safe word placement
 function placeWord(grid, word) {
   const size = grid.length;
+
   const directions = [
     [1, 0],   // down
     [0, 1],   // right
@@ -21,38 +21,42 @@ function placeWord(grid, word) {
     [-1, 1],  // up-right diagonal
   ];
 
-  const [dr, dc] = directions[Math.floor(Math.random() * directions.length)];
+  const dirs = [...directions].sort(() => Math.random() - 0.5);
 
-  // Compute legal starting positions
-  const rowRange =
-    dr === 1 ? size - word.length : dr === -1 ? word.length - 1 : size - 1;
-  const colRange = dc === 1 ? size - word.length : size - 1;
+  for (const [dr, dc] of dirs) {
+    for (let r = 0; r < size; r++) {
+      for (let c = 0; c < size; c++) {
+        let fits = true;
 
-  const startRow = Math.floor(Math.random() * (rowRange + 1));
-  const startCol = Math.floor(Math.random() * (colRange + 1));
+        for (let i = 0; i < word.length; i++) {
+          const rr = r + dr * i;
+          const cc = c + dc * i;
 
-  // Verify placement
-  for (let i = 0; i < word.length; i++) {
-    const r = startRow + dr * i;
-    const c = startCol + dc * i;
+          if (rr < 0 || rr >= size || cc < 0 || cc >= size) {
+            fits = false;
+            break;
+          }
 
-    // Out-of-bounds check (prevents undefined errors)
-    if (r < 0 || r >= size || c < 0 || c >= size) return false;
+          const cell = grid[rr][cc];
+          if (cell !== "" && cell !== word[i]) {
+            fits = false;
+            break;
+          }
+        }
 
-    const cell = grid[r][c];
-    if (cell !== "" && cell !== word[i]) {
-      return false;
+        if (fits) {
+          for (let i = 0; i < word.length; i++) {
+            const rr = r + dr * i;
+            const cc = c + dc * i;
+            grid[rr][cc] = word[i];
+          }
+          return true;
+        }
+      }
     }
   }
 
-  // Place word
-  for (let i = 0; i < word.length; i++) {
-    const r = startRow + dr * i;
-    const c = startCol + dc * i;
-    grid[r][c] = word[i];
-  }
-
-  return true;
+  return false;
 }
 
 // Fill blanks
@@ -70,20 +74,26 @@ function fillRandomLetters(grid) {
 // Main generator
 export function generateWordSearch(size = 12, wordCount = 12) {
   const grid = createEmptyGrid(size);
-  const words = getRandomWords(wordCount);
 
-  for (const word of words) {
+  // FINAL WORD LIST (only includes placed words)
+  const chosenWords = getRandomWords(wordCount);
+  const placedWords = [];
+
+  for (const word of chosenWords) {
+    const upperWord = word.toUpperCase();
     let placed = false;
     let attempts = 0;
-    const upperWord = word.toUpperCase();
 
     while (!placed && attempts < 50) {
       placed = placeWord(grid, upperWord);
       attempts++;
     }
+
+    // Only keep words that were actually placed
+    if (placed) placedWords.push(upperWord);
   }
 
   fillRandomLetters(grid);
-  return { grid, words };
-}
 
+  return { grid, words: placedWords };
+}
